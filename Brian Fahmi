@@ -1,0 +1,107 @@
+import java.util.Scanner;
+
+public class tugaspraktikum {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int menu = -1;
+
+        while (menu != 0) {
+            System.out.println("\n=== KALKULATOR MATEMATIKA & MATRIKS ===");
+            System.out.println("1. Hitung Faktorial (n!)");
+            System.out.println("2. Hitung Perpangkatan (a^b)");
+            System.out.println("3. Perkalian Matriks 2 x 2");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih menu: ");
+            menu = sc.nextInt();
+
+            switch (menu) {
+                case 1:
+                    System.out.print("Masukkan angka n: ");
+                    int n = sc.nextInt();
+                    if (n < 0) {
+                        System.out.println("Angka tidak boleh negatif.");
+                    } else {
+                        System.out.println("Hasil " + n + "! = " + hitungFaktorial(n));
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Masukkan angka pokok (a): ");
+                    int a = sc.nextInt();
+                    System.out.print("Masukkan pangkat (b): ");
+                    int b = sc.nextInt();
+                    if (b < 0) {
+                        System.out.println("Pangkat minimal 0.");
+                    } else {
+                        System.out.println("Hasil " + a + "^" + b + " = " + hitungPangkat(a, b));
+                    }
+                    break;
+
+                case 3:
+                    prosesMatriks(sc);
+                    break;
+
+                case 0:
+                    System.out.println("Program berhenti. Terima kasih!");
+                    break;
+
+                default:
+                    System.out.println("Pilihan salah, coba lagi.");
+            }
+        }
+
+        sc.close();
+    }
+
+    static long hitungFaktorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return n * hitungFaktorial(n - 1);
+    }
+
+    static long hitungPangkat(int a, int b) {
+        long hasil = 1;
+        for (int i = 1; i <= b; i++) {
+            hasil = hasil * a;
+        }
+        return hasil;
+    }
+
+    static void prosesMatriks(Scanner sc) {
+        int[][] matriksA = new int[2][2];
+        int[][] matriksB = new int[2][2];
+        int[][] hasil = new int[2][2];
+
+        System.out.println("Input elemen Matriks A:");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print("A[" + i + "][" + j + "] = ");
+                matriksA[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println("Input elemen Matriks B:");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print("B[" + i + "][" + j + "] = ");
+                matriksB[i][j] = sc.nextInt();
+            }
+        }
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                hasil[i][j] = (matriksA[i][0] * matriksB[0][j]) + (matriksA[i][1] * matriksB[1][j]);
+            }
+        }
+
+        System.out.println("Hasil perkalian Matriks A x B:");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print(hasil[i][j] + "\t");
+            }
+            System.out.println();
+        }
+    }
+}
